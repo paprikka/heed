@@ -15,11 +15,12 @@ Usage:
     uv run find_feeds.py
 
 Input: domains.json (array of domain strings)
-Output: LIST.md (Markdown table: url | feed url | feed online?)
+Output: LIST.json, LIST.md, LIST.csv
 """
 
 import argparse
 import asyncio
+import csv
 import json
 import sys
 from pathlib import Path
@@ -266,6 +267,23 @@ async def discover_feed_for_domain(
             return (domain, None, False)
 
 
+def write_json(
+    results: list[tuple[str, str | None, bool]],
+    filepath: str,
+) -> None:
+    """Write results as JSON."""
+    data = [
+        {
+            "url": url,
+            "feed_url": feed_url,
+            "feed_online": is_online,
+        }
+        for url, feed_url, is_online in results
+    ]
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
 def write_markdown_table(
     results: list[tuple[str, str | None, bool]],
     filepath: str,
@@ -279,6 +297,18 @@ def write_markdown_table(
             feed_col = feed_url or ""
             online_col = "yes" if is_online else "no"
             f.write(f"| {url} | {feed_col} | {online_col} |\n")
+
+
+def write_csv(
+    results: list[tuple[str, str | None, bool]],
+    filepath: str,
+) -> None:
+    """Write results as CSV."""
+    with open(filepath, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["url", "feed_url", "feed_online"])
+        for url, feed_url, is_online in results:
+            writer.writerow([url, feed_url or "", "yes" if is_online else "no"])
 
 
 def parse_args() -> argparse.Namespace:
@@ -311,7 +341,9 @@ async def main() -> None:
     console = Console()
 
     input_file = "domains.json"
-    output_file = "LIST.md"
+    output_json = "LIST.json"
+    output_md = "LIST.md"
+    output_csv = "LIST.csv"
 
     # Load domains
     if not Path(input_file).exists():
@@ -365,13 +397,15 @@ async def main() -> None:
     # Filter out exceptions
     valid_results = [r for r in results if isinstance(r, tuple)]
 
-    # Write Markdown table
-    write_markdown_table(valid_results, output_file)
+    # Write results in all formats
+    write_json(valid_results, output_json)
+    write_markdown_table(valid_results, output_md)
+    write_csv(valid_results, output_csv)
 
     # Summary
     found = sum(1 for _, feed, _ in valid_results if feed)
     console.print(f"\n[bold green]Complete![/bold green] Found {found} feeds out of {total} domains")
-    console.print(f"Results saved to [cyan]{output_file}[/cyan]")
+    console.print(f"Results saved to [cyan]{output_json}[/cyan], [cyan]{output_md}[/cyan], [cyan]{output_csv}[/cyan]")
 
 
 if __name__ == "__main__":

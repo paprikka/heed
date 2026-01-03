@@ -1,0 +1,52 @@
+[
+  {
+    "url": "simonwillison.net",
+    "feed_url": "https://simonwillison.net/atom/everything/",
+    "feed_online": true
+  },
+  {
+    "url": "jeffgeerling.com",
+    "feed_url": "https://www.jeffgeerling.com/blog.xml",
+    "feed_online": true
+  },
+  {
+    "url": "seangoedecke.com",
+    "feed_url": "https://seangoedecke.com/rss.xml",
+    "feed_online": true
+  },
+  {
+    "url": "krebsonsecurity.com",
+    "feed_url": null,
+    "feed_online": false
+  },
+  {
+    "url": "neal.fun",
+    "feed_url": null,
+    "feed_online": false
+  },
+  {
+    "url": "daringfireball.net",
+    "feed_url": "https://daringfireball.net/feeds/main",
+    "feed_online": true
+  },
+  {
+    "url": "ericmigi.com",
+    "feed_url": "https://ericmigi.com/rss.xml",
+    "feed_online": true
+  },
+  {
+    "url": "antirez.com",
+    "feed_url": "https://antirez.com/rss",
+    "feed_online": true
+  },
+  {
+    "url": "idiallo.com",
+    "feed_url": "https://idiallo.com/feed.rss",
+    "feed_online": true
+  },
+  {
+    "url": "maurycyz.com",
+    "feed_url": "https://maurycyz.com/index.xml",
+    "feed_online": true
+  }
+]

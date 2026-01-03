@@ -1,0 +1,11 @@
+url,feed_url,feed_online
+simonwillison.net,https://simonwillison.net/atom/everything/,yes
+jeffgeerling.com,https://www.jeffgeerling.com/blog.xml,yes
+seangoedecke.com,https://seangoedecke.com/rss.xml,yes
+krebsonsecurity.com,,no
+neal.fun,,no
+daringfireball.net,https://daringfireball.net/feeds/main,yes
+ericmigi.com,https://ericmigi.com/rss.xml,yes
+antirez.com,https://antirez.com/rss,yes
+idiallo.com,https://idiallo.com/feed.rss,yes
+maurycyz.com,https://maurycyz.com/index.xml,yes
