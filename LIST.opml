@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>RSS Feeds</title>
+  </head>
+  <body>
+    <outline text="simonwillison.net" type="rss" xmlUrl="https://simonwillison.net/atom/everything/" htmlUrl="https://simonwillison.net"/>
+    <outline text="jeffgeerling.com" type="rss" xmlUrl="https://www.jeffgeerling.com/blog.xml" htmlUrl="https://jeffgeerling.com"/>
+    <outline text="seangoedecke.com" type="rss" xmlUrl="https://seangoedecke.com/rss.xml" htmlUrl="https://seangoedecke.com"/>
+    <outline text="daringfireball.net" type="rss" xmlUrl="https://daringfireball.net/feeds/main" htmlUrl="https://daringfireball.net"/>
+    <outline text="ericmigi.com" type="rss" xmlUrl="https://ericmigi.com/rss.xml" htmlUrl="https://ericmigi.com"/>
+    <outline text="antirez.com" type="rss" xmlUrl="https://antirez.com/rss" htmlUrl="https://antirez.com"/>
+    <outline text="idiallo.com" type="rss" xmlUrl="https://idiallo.com/feed.rss" htmlUrl="https://idiallo.com"/>
+    <outline text="maurycyz.com" type="rss" xmlUrl="https://maurycyz.com/index.xml" htmlUrl="https://maurycyz.com"/>
+  </body>
+</opml>

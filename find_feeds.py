@@ -15,7 +15,7 @@ Usage:
     uv run find_feeds.py
 
 Input: domains.json (array of domain strings)
-Output: LIST.json, LIST.md, LIST.csv
+Output: LIST.json, LIST.md, LIST.csv, LIST.opml
 """
 
 import argparse
@@ -311,6 +311,33 @@ def write_csv(
             writer.writerow([url, feed_url or "", "yes" if is_online else "no"])
 
 
+def write_opml(
+    results: list[tuple[str, str | None, bool]],
+    filepath: str,
+) -> None:
+    """Write results as OPML (for feed reader import)."""
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        f.write('<opml version="2.0">\n')
+        f.write("  <head>\n")
+        f.write("    <title>RSS Feeds</title>\n")
+        f.write("  </head>\n")
+        f.write("  <body>\n")
+
+        for url, feed_url, is_online in results:
+            if not feed_url:
+                continue
+            # Escape XML special characters
+            safe_url = url.replace("&", "&amp;").replace('"', "&quot;")
+            safe_feed = feed_url.replace("&", "&amp;").replace('"', "&quot;")
+            html_url = f"https://{url}" if not url.startswith("http") else url
+            safe_html = html_url.replace("&", "&amp;").replace('"', "&quot;")
+            f.write(f'    <outline text="{safe_url}" type="rss" xmlUrl="{safe_feed}" htmlUrl="{safe_html}"/>\n')
+
+        f.write("  </body>\n")
+        f.write("</opml>\n")
+
+
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Discover RSS feeds for domains")
@@ -344,6 +371,7 @@ async def main() -> None:
     output_json = "LIST.json"
     output_md = "LIST.md"
     output_csv = "LIST.csv"
+    output_opml = "LIST.opml"
 
     # Load domains
     if not Path(input_file).exists():
@@ -401,11 +429,12 @@ async def main() -> None:
     write_json(valid_results, output_json)
     write_markdown_table(valid_results, output_md)
     write_csv(valid_results, output_csv)
+    write_opml(valid_results, output_opml)
 
     # Summary
     found = sum(1 for _, feed, _ in valid_results if feed)
     console.print(f"\n[bold green]Complete![/bold green] Found {found} feeds out of {total} domains")
-    console.print(f"Results saved to [cyan]{output_json}[/cyan], [cyan]{output_md}[/cyan], [cyan]{output_csv}[/cyan]")
+    console.print(f"Results saved to [cyan]{output_json}[/cyan], [cyan]{output_md}[/cyan], [cyan]{output_csv}[/cyan], [cyan]{output_opml}[/cyan]")
 
 
 if __name__ == "__main__":
