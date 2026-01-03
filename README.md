@@ -29,9 +29,9 @@ Output: `LIST.json`, `LIST.md`, `LIST.csv`, `LIST.opml`
 
 [Context](https://untested.sonnet.io/notes/share-your-unfinished-scrappy-work/): This is a quick 30 min mostly vibe-coded project for [rafal](https://sonnet.io) so he could upload it to his favourite [RSS Reader](https://netnewswire.com/). Be kind, be curious.
 
-![flower](flower.png)
-
 - [ ] update domains.json automatically on a schedule
 - [ ] add a write-up on untested
 - [ ] replace "feed online" with a status / comments column
 - [ ] support sites with multiple feeds
+
+![flower](flower.png)
